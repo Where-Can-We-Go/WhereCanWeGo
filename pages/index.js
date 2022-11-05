@@ -6,5 +6,10 @@ const Map = dynamic(() => import("../components/map"), {
 });
 
 export default function Home() {
-  return <Map></Map>;
+  return (
+    <div>
+      <Map></Map>
+      <div>asdasdasa</div>
+    </div>
+  );
 }
