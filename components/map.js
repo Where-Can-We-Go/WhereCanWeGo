@@ -1,5 +1,11 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+const icon = L.icon({
+  iconUrl: "/images/marker-icon.png",
+  shadowUrl: "/images/marker-shadow.png",
+  popupAnchor: [12, 0],
+});
 
 export default function Map({ children }) {
   return (
@@ -7,16 +13,14 @@ export default function Map({ children }) {
       center={[51.505, -0.09]}
       zoom={13}
       scrollWheelZoom={false}
-      className="h-screen"
+      className="h-[800px] w-[1000px]"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[51.505, -0.09]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
+      <Marker position={[51.505, -0.09]} icon={icon} draggable={true}>
+        <Popup></Popup>
       </Marker>
     </MapContainer>
   );
