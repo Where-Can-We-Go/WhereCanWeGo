@@ -19,7 +19,7 @@ export default function Home() {
           />
         </div>
         {/* Info boxes container */}
-        <div className="h-5/6 w-full"></div>
+        <div className="w-full"></div>
       </div>
       <div className="h-screen w-3/4 block float-right">
         <Map></Map>
