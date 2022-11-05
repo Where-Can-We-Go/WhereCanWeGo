@@ -5,6 +5,10 @@ const Map = dynamic(() => import("../components/map"), {
   ssr: false,
 });
 
+const Display = dynamic(() => import("../components/display"), {
+  ssr: false,
+});
+
 export default function Home() {
   return (
     <div className="h-screen w-full">
@@ -19,7 +23,9 @@ export default function Home() {
           />
         </div>
         {/* Info boxes container */}
-        <div className="w-full"></div>
+        <div className="w-full">
+          <Display></Display>
+        </div>
       </div>
       <div className="h-screen w-3/4 block float-right">
         <Map></Map>
