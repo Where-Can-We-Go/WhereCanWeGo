@@ -13,7 +13,7 @@ export default function Map({ children }) {
       center={[51.505, -0.09]}
       zoom={13}
       scrollWheelZoom={false}
-      className="h-[800px] w-[1000px]"
+      className="h-full w-full"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
