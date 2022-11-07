@@ -1,18 +1,18 @@
 import { Card, Text } from "@mantine/core";
 
-export default function Display() {
+export default function Display(props) {
   return (
     <Card shadow="sm" p="lg" radius="md" withBorder className="mb-3">
       <Text weight={500} className="mb-2">
-        Default Name
+        {props.name}
       </Text>
 
       <div className="flex justify-between">
         <Text size="sm" color="dimmed">
-          Default Address
+          {props.address}
         </Text>
         <Text size="sm" color="dimmed">
-          Org Type
+          {props.orgType}
         </Text>
       </div>
     </Card>
