@@ -25,8 +25,7 @@ const useNameStore = create((set) => ({
 
 async function getData() {
   const res = await fetch(
-    "http://localhost:3000/api/getMapData?" +
-      new URLSearchParams({ zipCode: "32608" })
+    "/api/getMapData?" + new URLSearchParams({ zipCode: "32608" })
   );
   const data = await res.json();
   return data.searchResult;
