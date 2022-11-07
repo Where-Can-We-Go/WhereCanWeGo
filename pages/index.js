@@ -3,15 +3,39 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { ScrollArea } from "@mantine/core";
 import { Button } from "@mantine/core";
+import Display from "../components/display";
+import create from "zustand";
+import { URLSearchParams } from "next/dist/compiled/@edge-runtime/primitives/url";
+
 const Map = dynamic(() => import("../components/map"), {
   ssr: false,
 });
 
-const Display = dynamic(() => import("../components/display"), {
-  ssr: false,
-});
+// const Display = dynamic(() => import("../components/display"), {
+//   ssr: false,
+// });
+
+const useNameStore = create((set) => ({
+  nonprofits: [],
+  getNonprofitData: async () => {
+    const npData = await getData();
+    set({ nonprofits: npData });
+  },
+}));
+
+async function getData() {
+  const res = await fetch(
+    "http://localhost:3000/api/getMapData?" +
+      new URLSearchParams({ zipCode: "32608" })
+  );
+  const data = await res.json();
+  return data.searchResult;
+}
 
 export default function Home() {
+  const nonprofits = useNameStore((state) => state.nonprofits);
+  const getNonprofitData = useNameStore((state) => state.getNonprofitData);
+
   return (
     <div className="h-screen w-full">
       <div className="h-full w-1/4 block float-left">
@@ -36,7 +60,9 @@ export default function Home() {
           </div>
           <div className="pt-1 flex justify-center">
             <Button.Group>
-              <Button variant="default">Filter 1</Button>
+              <Button variant="default" onClick={getNonprofitData}>
+                *Load Data
+              </Button>
               <Button variant="default">Filter 2</Button>
               <Button variant="default">Filter 3</Button>
               <Button variant="default">Filter 4</Button>
@@ -46,6 +72,27 @@ export default function Home() {
         {/* Info boxes container */}
         <div className="w-full h-5/6 flex justify-center">
           <ScrollArea type="hover" className="w-5/6 h-full">
+            {nonprofits.map((npInfo, i) => {
+              return (
+                <Display
+                  key={npInfo.EIN}
+                  name={npInfo.NAME}
+                  address={
+                    npInfo.STREET +
+                    ", " +
+                    npInfo.CITY +
+                    ", " +
+                    npInfo.STATE +
+                    " " +
+                    npInfo.ZIP
+                  }
+                  orgType={npInfo["Classification Code"]}
+                ></Display>
+              );
+            })}
+
+            {/* 11x Displays */}
+            {/* <Display>{name}</Display>
             <Display></Display>
             <Display></Display>
             <Display></Display>
@@ -55,8 +102,7 @@ export default function Home() {
             <Display></Display>
             <Display></Display>
             <Display></Display>
-            <Display></Display>
-            <Display></Display>
+            <Display></Display> */}
           </ScrollArea>
         </div>
       </div>
