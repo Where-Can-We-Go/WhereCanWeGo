@@ -37,10 +37,10 @@ export default function Home() {
 
   return (
     <div className="h-screen w-full">
-      <div className="h-1/2 min-[900px]:h-screen w-full min-[900px]:w-3/4 block min-[900px]:float-right">
+      <div className="h-1/2 min-[800px]:h-screen w-full min-[800px]:w-3/4 block min-[800px]:float-right">
         <Map></Map>
       </div>
-      <div className="h-1/2 min-[900px]:h-full w-full min-[900px]:w-1/4 block min-[900px]:float-left">
+      <div className="h-1/2 min-[800px]:h-full w-full min-[800px]:w-1/4 block min-[800px]:float-left">
         {/* search container */}
         <div className="w-full p-4 h-1/4 max-[700px]:h-1/2">
           <div className="flex justify-center">
@@ -52,10 +52,6 @@ export default function Home() {
             />
           </div>
           <div className="pt-2 inline-block text-center justify-center overscroll-contain">
-            <Button variant="default">Filter 1</Button>
-            <Button variant="default">Filter 2</Button>
-            <Button variant="default">Filter 3</Button>
-            <Button variant="default">Filter 4</Button>
             <Button variant="default" onClick={getNonprofitData}>
               *Load Data
             </Button>
