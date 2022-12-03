@@ -37,9 +37,12 @@ export default function Home() {
 
   return (
     <div className="h-screen w-full">
-      <div className="h-full w-1/4 block float-left">
+      <div className="h-1/2 min-[1200px]:h-screen w-full min-[1200px]:w-2/3 block min-[1200px]:float-right min-[1620px]:w-3/4">
+        <Map></Map>
+      </div>
+      <div className="h-1/2 min-[1200px]:h-full w-full min-[1200px]:w-1/3 block min-[1200px]:float-left min-[1620px]:w-1/4">
         {/* search container */}
-        <div className="w-full h-1/6 p-4">
+        <div className="w-full p-4 h-1/4 max-[1200px]:h-1/2">
           <div className="flex justify-center">
             <input
               className="w-5/6 placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md p-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
@@ -48,29 +51,37 @@ export default function Home() {
               name="search"
             />
           </div>
-          <div className="pt-2 flex justify-center">
-            <Button.Group>
-              <Button variant="default">Filter 1</Button>
-              <Button variant="default">Filter 2</Button>
-              <Button variant="default">Filter 3</Button>
-              <Button variant="default">Filter 4</Button>
-              <Button variant="default">Filter 5</Button>
-            </Button.Group>
-          </div>
-          <div className="pt-1 flex justify-center">
-            <Button.Group>
-              <Button variant="default" onClick={getNonprofitData}>
+          <div className="h-3/4 text-center items-center grid grid-flow-col auto-cols-auto max-[375px]:grid-rows-2 max-[375px]:grid-cols-2 gap-2 justify-center">
+            <div>
+              <Button
+                variant="default"
+                onClick={getNonprofitData}
+                className="rounded-full"
+              >
                 *Load Data
               </Button>
-              <Button variant="default">Filter 2</Button>
-              <Button variant="default">Filter 3</Button>
-              <Button variant="default">Filter 4</Button>
-            </Button.Group>
+            </div>
+            <div>
+              <Button variant="default" className="rounded-full">
+                Filter 2
+              </Button>
+            </div>
+            <div>
+              {" "}
+              <Button variant="default" className="rounded-full">
+                Filter 3
+              </Button>
+            </div>
+            <div>
+              <Button variant="default" className="rounded-full">
+                Filter 4
+              </Button>
+            </div>
           </div>
         </div>
         {/* Info boxes container */}
-        <div className="w-full h-5/6 flex justify-center">
-          <ScrollArea type="hover" className="w-5/6 h-full">
+        <div className="w-full overflow-auto h-3/4 flex justify-center max-[1200px]:h-1/2 ">
+          <ScrollArea type="hover" className="w-5/6">
             {nonprofits.map((npInfo, i) => {
               return (
                 <Display
@@ -104,9 +115,6 @@ export default function Home() {
             <Display></Display> */}
           </ScrollArea>
         </div>
-      </div>
-      <div className="h-screen w-3/4 block float-right">
-        <Map></Map>
       </div>
     </div>
   );
