@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useState } from "react";
 import { ScrollArea } from "@mantine/core";
 import { TextInput, Button } from "@mantine/core";
 import { useForm } from "@mantine/form";
@@ -20,7 +19,8 @@ const useNameStore = create((set, get) => ({
     const npData = await getData(get().inputZip);
     set({ nonprofits: npData });
   },
-  setInputZip: (newInputZip) => { //Changes the zipcode from default to the user value
+  setInputZip: (newInputZip) => {
+    //Changes the zipcode from default to the user value
     set((state) => ({
       inputZip: newInputZip,
     }));
@@ -40,9 +40,13 @@ export default function Home() {
   const getNonprofitData = useNameStore((state) => state.getNonprofitData);
   const setInputZip = useNameStore((state) => state.setInputZip); //Sets the zipcode to what the user inputs
 
-  const form = useForm({ //Handles the value for the search bar
+  const form = useForm({
+    //Handles the value for the search bar
     initialValues: {
       searchVal: "",
+    },
+    validate: {
+      searchVal: (value) => (value != 5 ? 'Please enter a valid 5-digit zipcode' : null),
     },
   });
 
@@ -58,6 +62,8 @@ export default function Home() {
             <form
               onSubmit={form.onSubmit((values) => {
                 setInputZip(values.searchVal);
+                getNonprofitData();
+                form.reset();
               })}
             >
               <TextInput // Textbox for the website's search bar
@@ -65,10 +71,13 @@ export default function Home() {
                 placeholder="Enter a zipcode..."
                 {...form.getInputProps("searchVal")}
               />
-            </form>
-            <Button variant="default" onClick={getNonprofitData}> 
+              <Button
+                variant="default"
+                type="submit"
+              >
                 Search
               </Button>
+            </form>
           </div>
           <div className="h-3/4 text-center items-center grid grid-flow-col auto-cols-auto max-[375px]:grid-rows-2 max-[375px]:grid-cols-2 gap-2 justify-center">
             <div>
