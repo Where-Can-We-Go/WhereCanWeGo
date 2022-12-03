@@ -1,8 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 import { ScrollArea } from "@mantine/core";
-import { Button } from "@mantine/core";
+import { TextInput, Button } from "@mantine/core";
+import { useForm } from "@mantine/form";
 import Display from "../components/display";
 import create from "zustand";
 import { URLSearchParams } from "next/dist/compiled/@edge-runtime/primitives/url";
@@ -11,21 +13,23 @@ const Map = dynamic(() => import("../components/map"), {
   ssr: false,
 });
 
-// const Display = dynamic(() => import("../components/display"), {
-//   ssr: false,
-// });
-
-const useNameStore = create((set) => ({
+const useNameStore = create((set, get) => ({
   nonprofits: [],
+  inputZip: "32608",
   getNonprofitData: async () => {
-    const npData = await getData();
+    const npData = await getData(get().inputZip);
     set({ nonprofits: npData });
+  },
+  setInputZip: (newInputZip) => { //Changes the zipcode from default to the user value
+    set((state) => ({
+      inputZip: newInputZip,
+    }));
   },
 }));
 
-async function getData() {
+async function getData(inputZip) {
   const res = await fetch(
-    "/api/getMapData?" + new URLSearchParams({ zipCode: "32608" })
+    "/api/getMapData?" + new URLSearchParams({ zipCode: inputZip })
   );
   const data = await res.json();
   return data.searchResult;
@@ -34,6 +38,13 @@ async function getData() {
 export default function Home() {
   const nonprofits = useNameStore((state) => state.nonprofits);
   const getNonprofitData = useNameStore((state) => state.getNonprofitData);
+  const setInputZip = useNameStore((state) => state.setInputZip); //Sets the zipcode to what the user inputs
+
+  const form = useForm({ //Handles the value for the search bar
+    initialValues: {
+      searchVal: "",
+    },
+  });
 
   return (
     <div className="h-screen w-full">
@@ -41,12 +52,20 @@ export default function Home() {
         {/* search container */}
         <div className="w-full h-1/6 p-4">
           <div className="flex justify-center">
-            <input
-              className="w-5/6 placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md p-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-              placeholder="Search for anything..."
-              type="text"
-              name="search"
-            />
+            <form
+              onSubmit={form.onSubmit((values) => {
+                setInputZip(values.searchVal);
+              })}
+            >
+              <TextInput // Textbox for the website's search bar
+                className="w-5/6 placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md p-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                placeholder="Enter a zipcode..."
+                {...form.getInputProps("searchVal")}
+              />
+            </form>
+            <Button variant="default" onClick={getNonprofitData}> 
+                Search
+              </Button>
           </div>
           <div className="pt-2 flex justify-center">
             <Button.Group>
