@@ -46,7 +46,7 @@ export default function Home() {
       searchVal: "",
     },
     validate: {
-      searchVal: (value) => (value != 5 ? 'Please enter a valid 5-digit zipcode' : null),
+      searchVal: (value) => (value.length != 5 || /[^\d]/.test(value) ? 'Please enter a valid 5-digit zipcode' : null),
     },
   });
 
