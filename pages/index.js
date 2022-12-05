@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useState } from "react";
 import { ScrollArea } from "@mantine/core";
 import { TextInput, Button } from "@mantine/core";
 import { useForm } from "@mantine/form";
@@ -46,6 +45,9 @@ export default function Home() {
     initialValues: {
       searchVal: "",
     },
+    validate: {
+      searchVal: (value) => (value.length != 5 || /[^\d]/.test(value) ? 'Please enter a valid 5-digit zipcode' : null),
+    },
   });
 
   return (
@@ -60,6 +62,8 @@ export default function Home() {
             <form
               onSubmit={form.onSubmit((values) => {
                 setInputZip(values.searchVal);
+                getNonprofitData();
+                form.reset();
               })}
             >
               <TextInput // Textbox for the website's search bar
@@ -67,10 +71,14 @@ export default function Home() {
                 placeholder="Enter a zipcode..."
                 {...form.getInputProps("searchVal")}
               />
+
+              <Button
+                variant="default"
+                type="submit"
+              >
+                Search
+              </Button>
             </form>
-            <Button variant="default" onClick={getNonprofitData}>
-              Search
-            </Button>
           </div>
           <div className="h-3/4">
             <div className="h-5/6 text-center items-center grid grid-flow-col auto-cols-auto gap-2 justify-center">
