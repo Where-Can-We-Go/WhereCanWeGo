@@ -54,6 +54,7 @@ export default function Home() {
   });
 
   return (
+
     <div className="h-screen w-full">
       <div className="h-1/2 min-[1200px]:h-screen w-full min-[1200px]:w-2/3 block min-[1200px]:float-right min-[1620px]:w-3/4">
         <Map></Map>
@@ -161,19 +162,6 @@ export default function Home() {
                 ></Display>
               );
             })}
-
-            {/* 11x Displays */}
-            {/* <Display>{name}</Display>
-            <Display></Display>
-            <Display></Display>
-            <Display></Display>
-            <Display></Display>
-            <Display></Display>
-            <Display></Display>
-            <Display></Display>
-            <Display></Display>
-            <Display></Display>
-            <Display></Display> */}
           </ScrollArea>
         </div>
       </div>
