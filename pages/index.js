@@ -20,7 +20,8 @@ const useNameStore = create((set, get) => ({
     const npData = await getData(get().inputZip);
     set({ nonprofits: npData });
   },
-  setInputZip: (newInputZip) => { //Changes the zipcode from default to the user value
+  setInputZip: (newInputZip) => {
+    //Changes the zipcode from default to the user value
     set((state) => ({
       inputZip: newInputZip,
     }));
@@ -40,7 +41,8 @@ export default function Home() {
   const getNonprofitData = useNameStore((state) => state.getNonprofitData);
   const setInputZip = useNameStore((state) => state.setInputZip); //Sets the zipcode to what the user inputs
 
-  const form = useForm({ //Handles the value for the search bar
+  const form = useForm({
+    //Handles the value for the search bar
     initialValues: {
       searchVal: "",
     },
@@ -61,39 +63,66 @@ export default function Home() {
               })}
             >
               <TextInput // Textbox for the website's search bar
-                className="w-5/6 placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md p-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                className="w-full"
                 placeholder="Enter a zipcode..."
                 {...form.getInputProps("searchVal")}
               />
             </form>
-            <Button variant="default" onClick={getNonprofitData}> 
-                Search
-              </Button>
+            <Button variant="default" onClick={getNonprofitData}>
+              Search
+            </Button>
           </div>
-          <div className="h-3/4 text-center items-center grid grid-flow-col auto-cols-auto max-[375px]:grid-rows-2 max-[375px]:grid-cols-2 gap-2 justify-center">
-            <div>
+          <div className="h-3/4">
+            <div className="h-5/6 text-center items-center grid grid-flow-col auto-cols-auto gap-2 justify-center">
+              <div>
+                <Button
+                  variant="default"
+                  className="rounded-full w-[75px] h-[75px] hover:border-4 hover:bg-slate-100"
+                >
+                  <img src="\images\034-house.png" className="w-[50px]"></img>
+                </Button>
+                <p className="center text-sm">Shelter/Housing</p>
+              </div>
+              <div>
+                <Button
+                  variant="default"
+                  className="rounded-full w-[75px] h-[75px] hover:border-4 hover:bg-slate-100"
+                >
+                  <img src="\images\030-food.png" className="w-[50px]"></img>
+                </Button>
+                <p className="center text-sm">Food</p>
+              </div>
+              <div>
+                <Button
+                  variant="default"
+                  className="rounded-full w-[75px] h-[75px] hover:border-4 hover:bg-slate-100"
+                >
+                  <img
+                    src="\images\021-teamwork.png"
+                    className="w-[50px]"
+                  ></img>
+                </Button>
+                <p className="center text-sm">Social Services</p>
+              </div>
+              <div>
+                <Button
+                  variant="default"
+                  className="rounded-full w-[75px] h-[75px] hover:border-4 hover:bg-slate-100"
+                >
+                  <img
+                    src="\images\018-stethoscope.png"
+                    className="w-[50px]"
+                  ></img>
+                </Button>
+                <p className="center text-sm">Health</p>
+              </div>
+            </div>
+            <div className="h-1/5 text-center">
               <Button
                 variant="default"
-                onClick={getNonprofitData}
-                className="rounded-full"
+                className="rounded-full hover:bg-slate-100"
               >
-                *Load Data
-              </Button>
-            </div>
-            <div>
-              <Button variant="default" className="rounded-full">
-                Filter 2
-              </Button>
-            </div>
-            <div>
-              {" "}
-              <Button variant="default" className="rounded-full">
-                Filter 3
-              </Button>
-            </div>
-            <div>
-              <Button variant="default" className="rounded-full">
-                Filter 4
+                Sign In
               </Button>
             </div>
           </div>
