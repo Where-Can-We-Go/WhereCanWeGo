@@ -7,8 +7,7 @@ import { useForm } from "@mantine/form";
 import Display from "../components/display";
 import create from "zustand";
 import { URLSearchParams } from "next/dist/compiled/@edge-runtime/primitives/url";
-import { signIn } from "next-auth/react";
-
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Map = dynamic(() => import("../components/map"), {
   ssr: false,
@@ -41,6 +40,7 @@ export default function Home() {
   const nonprofits = useNameStore((state) => state.nonprofits);
   const getNonprofitData = useNameStore((state) => state.getNonprofitData);
   const setInputZip = useNameStore((state) => state.setInputZip); //Sets the zipcode to what the user inputs
+  const { data: session } = useSession();
 
   const form = useForm({
     //Handles the value for the search bar
@@ -56,7 +56,6 @@ export default function Home() {
   });
 
   return (
-
     <div className="h-screen w-full">
       <div className="h-1/2 min-[1200px]:h-screen w-full min-[1200px]:w-2/3 block min-[1200px]:float-right min-[1620px]:w-3/4">
         <Map></Map>
@@ -134,15 +133,26 @@ export default function Home() {
               </div>
             </div>
             <div className="h-1/4 text-center">
-              <Button
-                variant="default"
-                className="rounded-full hover:bg-slate-100"
-                onClick={() => {
-                  signIn();
-                }}
-              >
-                Sign In
-              </Button>
+              {session ? (
+                <Button
+                  variant="default"
+                  className="rounded-full hover:bg-slate-100"
+                  onClick={() => {
+                    signOut();
+                  }}
+                >
+                  Sign Out
+                </Button>
+              ) : (
+                <Button
+                  variant="default"
+                  className="rounded-full hover:bg-slate-100"
+                  onClick={() => {
+                    signIn();
+                  }}
+                >
+                  Sign In
+                </Button>
             </div>
           </div>
         </div>
