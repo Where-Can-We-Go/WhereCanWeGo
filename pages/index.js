@@ -36,6 +36,20 @@ async function getData(inputZip) {
   return data.searchResult;
 }
 
+
+// Maps each nonprofit classification code to
+const letterCodeMap = {
+  F: "health",
+  I: "social",
+  J: "social",
+  K: "food",
+  L: "shelter",
+  M: "social",
+  O: "social",
+  P: "social",
+  R: "social",
+};
+
 export default function Home() {
   const nonprofits = useNameStore((state) => state.nonprofits);
   const getNonprofitData = useNameStore((state) => state.getNonprofitData);
