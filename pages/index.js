@@ -126,7 +126,13 @@ export default function Home() {
                 {/* Shelter/housing filter button */}
                 <Button
                   variant="default"
-                  className="rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100"
+                  className={
+                    "rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100" +
+                    (filter === "shelter" ? " border-4 bg-slate-100" : "")
+                  }
+                  onClick={() => {
+                    setFilter("shelter");
+                  }}
                 >
                   <img src="\images\034-house.png" className="w-[50px]"></img>
                 </Button>
@@ -136,7 +142,13 @@ export default function Home() {
                 {/* Food filter button */}
                 <Button
                   variant="default"
-                  className="rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100"
+                  className={
+                    "rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100" +
+                    (filter === "food" ? " border-4 bg-slate-100" : "")
+                  }
+                  onClick={() => {
+                    setFilter("food");
+                  }}
                 >
                   <img src="\images\030-food.png" className="w-[50px]"></img>
                 </Button>
@@ -146,7 +158,13 @@ export default function Home() {
                 {/* Social services filter button */}
                 <Button
                   variant="default"
-                  className="rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100"
+                  className={
+                    "rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100" +
+                    (filter === "social" ? " border-4 bg-slate-100" : "")
+                  }
+                  onClick={() => {
+                    setFilter("social");
+                  }}
                 >
                   <img
                     src="\images\021-teamwork.png"
@@ -159,7 +177,13 @@ export default function Home() {
                 {/* Health fiter button */}
                 <Button
                   variant="default"
-                  className="rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100"
+                  className={
+                    "rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100" +
+                    (filter === "health" ? " border-4 bg-slate-100" : "")
+                  }
+                  onClick={() => {
+                    setFilter("health");
+                  }}
                 >
                   <img
                     src="\images\018-stethoscope.png"
