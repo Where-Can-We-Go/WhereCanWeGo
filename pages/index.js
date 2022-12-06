@@ -7,6 +7,7 @@ import { useForm } from "@mantine/form";
 import Display from "../components/display";
 import create from "zustand";
 import { URLSearchParams } from "next/dist/compiled/@edge-runtime/primitives/url";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Map = dynamic(() => import("../components/map"), {
   ssr: false,
@@ -39,6 +40,7 @@ export default function Home() {
   const nonprofits = useNameStore((state) => state.nonprofits);
   const getNonprofitData = useNameStore((state) => state.getNonprofitData);
   const setInputZip = useNameStore((state) => state.setInputZip); //Sets the zipcode to what the user inputs
+  const { data: session } = useSession();
 
   const form = useForm({
     //Handles the value for the search bar
@@ -138,13 +140,28 @@ export default function Home() {
               </div>
             </div>
             <div className="h-1/4 text-center">
-              {/* Sign in button */}
-              <Button
-                variant="default"
-                className="rounded-full hover:bg-slate-100"
-              >
-                Sign In
-              </Button>
+              {session ? (
+                <Button
+                  variant="default"
+                  className="rounded-full hover:bg-slate-100"
+                  onClick={() => {
+                    signOut();
+                  }}
+                >
+                  Sign Out
+                </Button>
+              ) : (
+                <Button
+                  variant="default"
+                  className="rounded-full hover:bg-slate-100"
+                  onClick={() => {
+                    signIn();
+                  }}
+                >
+                  Sign In
+                </Button>
+              )}
+              {session ? <div>Name: {session.user.name}</div> : null}
             </div>
           </div>
         </div>
