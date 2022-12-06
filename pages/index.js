@@ -194,6 +194,7 @@ export default function Home() {
               </div>
             </div>
             <div className="h-1/4 text-center">
+              {/* Conditionally display sign-in or sign-out button depending on current user login state */}
               {session ? (
                 <Button
                   variant="default"
@@ -229,22 +230,22 @@ export default function Home() {
                 filter === "" ||
                 letterCodeMap[npInfo["Classification Code"]] === filter
               ) {
-              return (
-                <Display // displays nonprofit information in a box
-                  key={npInfo.EIN}
-                  name={npInfo.NAME}
-                  address={
-                    npInfo.STREET +
-                    ", " +
-                    npInfo.CITY +
-                    ", " +
-                    npInfo.STATE +
-                    " " +
-                    npInfo.ZIP
-                  }
-                  orgType={npInfo["Classification Code"]}
-                ></Display>
-              );
+                return (
+                  <Display // displays nonprofit information in a box
+                    key={npInfo.EIN}
+                    name={npInfo.NAME}
+                    address={
+                      npInfo.STREET +
+                      ", " +
+                      npInfo.CITY +
+                      ", " +
+                      npInfo.STATE +
+                      " " +
+                      npInfo.ZIP
+                    }
+                    orgType={npInfo["Classification Code"]}
+                  ></Display>
+                );
               }
 
               return null;
