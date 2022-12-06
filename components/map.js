@@ -10,7 +10,7 @@ const icon = L.icon({
 export default function Map({ children }) {
   return (
     <MapContainer
-      center={[51.505, -0.09]}
+      center={[29.6436, -82.3549]}
       zoom={13}
       scrollWheelZoom={false}
       className="h-full w-full"
@@ -19,7 +19,7 @@ export default function Map({ children }) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[51.505, -0.09]} icon={icon} draggable={true}>
+      <Marker position={[29.6436, -82.3549]} icon={icon} draggable={false}>
         <Popup></Popup>
       </Marker>
     </MapContainer>
