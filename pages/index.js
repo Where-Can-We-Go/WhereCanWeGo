@@ -153,6 +153,8 @@ export default function Home() {
                 >
                   Sign In
                 </Button>
+              )}
+              {session ? <div>Name: {session.user.name}</div> : null}
             </div>
           </div>
         </div>
