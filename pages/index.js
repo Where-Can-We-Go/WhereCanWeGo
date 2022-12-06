@@ -225,6 +225,10 @@ export default function Home() {
             {" "}
             {/* Scrolling container for the nonprofit info boxes */}
             {nonprofits.map((npInfo, i) => {
+              if (
+                filter === "" ||
+                letterCodeMap[npInfo["Classification Code"]] === filter
+              ) {
               return (
                 <Display // displays nonprofit information in a box
                   key={npInfo.EIN}
@@ -241,6 +245,9 @@ export default function Home() {
                   orgType={npInfo["Classification Code"]}
                 ></Display>
               );
+              }
+
+              return null;
             })}
           </ScrollArea>
         </div>
