@@ -45,40 +45,42 @@ export default function Home() {
     initialValues: {
       searchVal: "",
     },
+    //Handles the validation for the search bar inputs
     validate: {
       searchVal: (value) =>
-        value.length != 5 || /[^\d]/.test(value)
-          ? "Please enter a valid 5-digit zipcode"
-          : null,
+        value.length != 5 || /[^\d]/.test(value) //If the zipcode is not 5 digits long or if it is non-numerical
+          ? "Please enter a valid 5-digit zipcode" //If the zipcode is invalid
+          : null, //If the zipcode is valid
     },
   });
 
   return (
-
     <div className="h-screen w-full">
       <div className="h-1/2 min-[1200px]:h-screen w-full min-[1200px]:w-2/3 block min-[1200px]:float-right min-[1620px]:w-3/4">
+        {/* Loads the map component */}
         <Map></Map>
       </div>
       <div className="h-1/2 min-[1200px]:h-full w-full min-[1200px]:w-1/3 block min-[1200px]:float-left min-[1620px]:w-1/4">
-        {/* search container */}
+        {/* Search container */}
         <div className="w-full p-4 h-1/3 max-[1200px]:h-1/2">
           <div className="flex justify-center">
-            <form
+            <form //Handles the submission of the zipcode input
               onSubmit={form.onSubmit((values) => {
-                setInputZip(values.searchVal);
-                getNonprofitData();
-                form.reset();
+                setInputZip(values.searchVal); //Sets the value of the user's input
+                getNonprofitData(); //Loads the nonprofit data based on input
+                form.reset(); //Clears the search bar
               })}
             >
               <div className="grid grid-cols-3">
                 <div className="col-span-2">
-                  <TextInput // Textbox for the website's search bar
+                  <TextInput //Textbox for the search bar
                     className="w-full"
                     placeholder="Enter a zipcode..."
-                    {...form.getInputProps("searchVal")}
+                    {...form.getInputProps("searchVal")} //Store the user input in the searchVal variable
                   />
                 </div>
                 <div>
+                  {/* Submits the input from the search bar */}
                   <Button variant="default" type="submit" className="w-full">
                     Search
                   </Button>
@@ -89,6 +91,7 @@ export default function Home() {
           <div className="h-3/4">
             <div className="h-3/4 text-center items-center grid grid-flow-col auto-cols-auto gap-2 justify-center">
               <div>
+                {/* Shelter/housing filter button */}
                 <Button
                   variant="default"
                   className="rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100"
@@ -98,6 +101,7 @@ export default function Home() {
                 <p className="center text-sm">Shelter/Housing</p>
               </div>
               <div>
+                {/* Food filter button */}
                 <Button
                   variant="default"
                   className="rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100"
@@ -107,6 +111,7 @@ export default function Home() {
                 <p className="center text-sm">Food</p>
               </div>
               <div>
+                {/* Social services filter button */}
                 <Button
                   variant="default"
                   className="rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100"
@@ -119,6 +124,7 @@ export default function Home() {
                 <p className="center text-sm">Social Services</p>
               </div>
               <div>
+                {/* Health fiter button */}
                 <Button
                   variant="default"
                   className="rounded-full w-[75px] h-[75px] max-[1200px]:w-[50px] max-[1200px]:h-[50px] hover:border-4 hover:bg-slate-100"
@@ -132,6 +138,7 @@ export default function Home() {
               </div>
             </div>
             <div className="h-1/4 text-center">
+              {/* Sign in button */}
               <Button
                 variant="default"
                 className="rounded-full hover:bg-slate-100"
@@ -144,9 +151,11 @@ export default function Home() {
         {/* Info boxes container */}
         <div className="w-full overflow-auto h-2/3 flex justify-center max-[1200px]:h-1/2 ">
           <ScrollArea type="hover" className="w-5/6">
+            {" "}
+            {/* Scrolling container for the nonprofit info boxes */}
             {nonprofits.map((npInfo, i) => {
               return (
-                <Display
+                <Display // displays nonprofit information in a box
                   key={npInfo.EIN}
                   name={npInfo.NAME}
                   address={
