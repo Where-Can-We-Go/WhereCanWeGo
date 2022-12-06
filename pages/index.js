@@ -7,6 +7,8 @@ import { useForm } from "@mantine/form";
 import Display from "../components/display";
 import create from "zustand";
 import { URLSearchParams } from "next/dist/compiled/@edge-runtime/primitives/url";
+import { signIn } from "next-auth/react";
+
 
 const Map = dynamic(() => import("../components/map"), {
   ssr: false,
@@ -135,6 +137,9 @@ export default function Home() {
               <Button
                 variant="default"
                 className="rounded-full hover:bg-slate-100"
+                onClick={() => {
+                  signIn();
+                }}
               >
                 Sign In
               </Button>
