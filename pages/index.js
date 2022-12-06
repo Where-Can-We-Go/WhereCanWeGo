@@ -36,6 +36,19 @@ async function getData(inputZip) {
   return data.searchResult;
 }
 
+const useFilterStore = create((set, get) => ({
+  filter: "",
+  setFilter: (newFilter) => {
+    // Set new filter value
+    // If the new filter is the same as the current, deselect it
+    if (newFilter === get().filter) {
+      newFilter = "";
+    }
+    set((state) => ({
+      filter: newFilter,
+    }));
+  },
+}));
 
 // Maps each nonprofit classification code to
 const letterCodeMap = {
@@ -54,6 +67,9 @@ export default function Home() {
   const nonprofits = useNameStore((state) => state.nonprofits);
   const getNonprofitData = useNameStore((state) => state.getNonprofitData);
   const setInputZip = useNameStore((state) => state.setInputZip); //Sets the zipcode to what the user inputs
+  const filter = useFilterStore((state) => state.filter);
+  const setFilter = useFilterStore((state) => state.setFilter);
+
   const { data: session } = useSession();
 
   const form = useForm({
