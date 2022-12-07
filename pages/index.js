@@ -1,8 +1,5 @@
-import Head from "next/head";
-import Image from "next/image";
 import dynamic from "next/dynamic";
-import { ScrollArea } from "@mantine/core";
-import { TextInput, Button } from "@mantine/core";
+import { ScrollArea, TextInput, Button } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Display from "../components/display";
 import create from "zustand";
