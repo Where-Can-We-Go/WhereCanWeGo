@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import useNonprofitStore from "../lib/nonprofits";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 const icon = L.icon({
@@ -8,6 +8,7 @@ const icon = L.icon({
 });
 
 export default function Map({ children }) {
+  const nonprofits = useNonprofitStore((state) => state.nonprofits);
   return (
     <MapContainer
       center={[29.6436, -82.3549]}
@@ -19,9 +20,17 @@ export default function Map({ children }) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[29.6436, -82.3549]} icon={icon} draggable={false}>
-        <Popup></Popup>
+      {nonprofits.map((npInfo, i) => {
+        return (
+          <Marker
+            position={[npInfo.lat, npInfo.lon]}
+            icon={icon}
+            draggable={false}
+          >
+            <Popup>{npInfo.NAME}</Popup>
       </Marker>
+        );
+      })}
     </MapContainer>
   );
 }
