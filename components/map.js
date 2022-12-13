@@ -34,6 +34,7 @@ export default function Map({ children }) {
       {nonprofits.map((npInfo, i) => {
         return (
           <Marker
+            key={npInfo.NAME}
             position={[npInfo.lat, npInfo.lon]}
             icon={icon}
             draggable={false}
