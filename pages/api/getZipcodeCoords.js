@@ -8,14 +8,16 @@ export default async function handler(req, res) {
   try {
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
-    const collection = db.collection("nonprofitDataGeocoded");
+    const collection = db.collection("zipcodesGeocoded");
 
     // Loads all nonprofits in all sub-zipcodes of the client-provided zipcode
     const searchResult = await collection
-      .find({ ZIP: { $regex: req.query.zipCode + "-[0-9]*" } })
+      .find({ ZIP: req.query.zipCode })
       .toArray();
 
-    res.status(200).json({ searchResult: searchResult });
+    console.log(searchResult);
+
+    res.status(200).json({ searchResult: searchResult[0] });
   } catch (e) {
     console.log("Failed to gather nonprofit data!");
     console.log(e);
