@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   try {
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
-    const collection = db.collection("nonprofitData");
+    const collection = db.collection("nonprofitDataGeocoded");
 
     // Loads all nonprofits in all sub-zipcodes of the client-provided zipcode
     const searchResult = await collection
