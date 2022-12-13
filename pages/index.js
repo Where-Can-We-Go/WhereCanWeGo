@@ -5,33 +5,11 @@ import Display from "../components/display";
 import create from "zustand";
 import { URLSearchParams } from "next/dist/compiled/@edge-runtime/primitives/url";
 import { signIn, signOut, useSession } from "next-auth/react";
+import useNonprofitStore from "../lib/nonprofits";
 
 const Map = dynamic(() => import("../components/map"), {
   ssr: false,
 });
-
-const useNameStore = create((set, get) => ({
-  nonprofits: [],
-  inputZip: "32608",
-  getNonprofitData: async () => {
-    const npData = await getData(get().inputZip);
-    set({ nonprofits: npData });
-  },
-  setInputZip: (newInputZip) => {
-    //Changes the zipcode from default to the user value
-    set((state) => ({
-      inputZip: newInputZip,
-    }));
-  },
-}));
-
-async function getData(inputZip) {
-  const res = await fetch(
-    "/api/getMapData?" + new URLSearchParams({ zipCode: inputZip })
-  );
-  const data = await res.json();
-  return data.searchResult;
-}
 
 const useFilterStore = create((set, get) => ({
   filter: "",
@@ -61,9 +39,9 @@ const letterCodeMap = {
 };
 
 export default function Home() {
-  const nonprofits = useNameStore((state) => state.nonprofits);
-  const getNonprofitData = useNameStore((state) => state.getNonprofitData);
-  const setInputZip = useNameStore((state) => state.setInputZip); //Sets the zipcode to what the user inputs
+  const nonprofits = useNonprofitStore((state) => state.nonprofits);
+  const getNonprofitData = useNonprofitStore((state) => state.getNonprofitData);
+  const setInputZip = useNonprofitStore((state) => state.setInputZip); //Sets the zipcode to what the user inputs
   const filter = useFilterStore((state) => state.filter);
   const setFilter = useFilterStore((state) => state.setFilter);
 
