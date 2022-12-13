@@ -73,8 +73,7 @@ export default function Home() {
           <div className="flex justify-center">
             <form //Handles the submission of the zipcode input
               onSubmit={form.onSubmit((values) => {
-                setInputZip(values.searchVal); //Sets the value of the user's input
-                getNonprofitData(); //Loads the nonprofit data based on input
+                setInputZip(values.searchVal); //Sets the value of the user's input and gets new nonprofit data based on this new zip code
                 form.reset(); //Clears the search bar
               })}
             >
